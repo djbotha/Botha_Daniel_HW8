@@ -148,18 +148,18 @@ public class PRG_IT_2015_march_test
                 String name = rs2.getString(1);     //POIs
                 Boolean wasVisited = false;
                 
-                innerloop: //http://wwwstackoverflow.com/questions/886955/breaking-out-of-nested-loops-in-java
+                rs = stmt.executeQuery(sql1); 
+                
+                innerloop: //http://www.stackoverflow.com/questions/886955/breaking-out-of-nested-loops-in-java
                 while(rs.next())    //Loop over Traces
                 {
                     latTrace = rs.getDouble(2);         //Latitude of Trace
                     lonTrace = rs.getDouble(3);         //Longitude of Trace
 
-    //                System.out.println("" + latTrace + " " + latTrace + " "+ latPOI + " "+ lonPOI + " ");
-
                     dist = haversine(latTrace, lonTrace, latPOI, lonPOI);
 
-                    System.out.println("\nname=" + name + ", dist=" + dist + ", rad=" + rad);
-                    System.out.println( "dist<rad: " + (dist<rad));
+//                    System.out.println("\nname=" + name + ", dist=" + dist + ", rad=" + rad);
+//                    System.out.println( "dist<rad: " + (dist<rad));
                     if (dist<rad) 
                     {
                         wasVisited = true;
@@ -173,25 +173,24 @@ public class PRG_IT_2015_march_test
 
                             dist = haversine(latTrace, lonTrace, latPOI, lonPOI);
 
-                            System.out.println("name=" + name + ", dist=" + dist + ", rad=" + rad);
-                            System.out.println( "dist>rad: " + (dist>rad) );
+//                            System.out.println("name=" + name + ", dist=" + dist + ", rad=" + rad);
+//                            System.out.println( "dist>rad: " + (dist>rad) );
                             if (dist>rad) 
                             {
                                 dep = "" + rs.getTimestamp(1);
 
-                                arrDep[c][0] = arr; //For arrival and departure times to be used later
-                                arrDep[c][1] = dep; 
+                                arrDep[c][0] = arr; //arrival time
+                                arrDep[c][1] = dep; //departure time  
                                 
                                 out.append(poisOutput[c] + "\t" + arr + "\t" + dep +"\n");
+//                                System.out.println("Breaking...");
+                                c++;
                                 break innerloop;
                             }
-    //                        System.out.println("" + rs.next() + (boolean)(c<13)); //Testing
                         }
                     }
-                    if (wasVisited)
-                        break innerloop;
-                    
                 }
+                System.out.println("\n\nCONTINUING\n\n");
             }
         } 
         catch (SQLException e) 
