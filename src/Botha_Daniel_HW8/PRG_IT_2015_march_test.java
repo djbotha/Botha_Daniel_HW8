@@ -136,7 +136,7 @@ public class PRG_IT_2015_march_test
             String sql1 = "SELECT * \nFROM NBUSER.\"traces\"";  //Traces
             String sql2 = "SELECT * \nFROM NBUSER.\"pois\"";    //POIS
 
-            ResultSet rs = stmt.executeQuery(sql1);     //Traces
+            ResultSet rs;     //Traces
             ResultSet rs2 = stmt2.executeQuery(sql2);   //POIS
             
             while(rs2.next()) //Loop over POI
@@ -146,7 +146,6 @@ public class PRG_IT_2015_march_test
                 lonPOI = rs2.getDouble(3);          //POIs
                 rad = rs2.getDouble(4);             //POIs
                 String name = rs2.getString(1);     //POIs
-                Boolean wasVisited = false;
                 
                 rs = stmt.executeQuery(sql1); 
                 
@@ -158,12 +157,8 @@ public class PRG_IT_2015_march_test
 
                     dist = haversine(latTrace, lonTrace, latPOI, lonPOI);
 
-//                    System.out.println("\nname=" + name + ", dist=" + dist + ", rad=" + rad);
-//                    System.out.println( "dist<rad: " + (dist<rad));
                     if (dist<rad) 
                     {
-                        wasVisited = true;
-                        
                         arr = "" + rs.getTimestamp(1);
 
                         while(rs.next())
@@ -173,8 +168,6 @@ public class PRG_IT_2015_march_test
 
                             dist = haversine(latTrace, lonTrace, latPOI, lonPOI);
 
-//                            System.out.println("name=" + name + ", dist=" + dist + ", rad=" + rad);
-//                            System.out.println( "dist>rad: " + (dist>rad) );
                             if (dist>rad) 
                             {
                                 dep = "" + rs.getTimestamp(1);
@@ -183,14 +176,12 @@ public class PRG_IT_2015_march_test
                                 arrDep[c][1] = dep; //departure time  
                                 
                                 out.append(poisOutput[c] + "\t" + arr + "\t" + dep +"\n");
-//                                System.out.println("Breaking...");
                                 c++;
                                 break innerloop;
                             }
                         }
                     }
                 }
-                System.out.println("\n\nCONTINUING\n\n");
             }
         } 
         catch (SQLException e) 
