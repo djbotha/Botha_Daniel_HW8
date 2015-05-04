@@ -159,18 +159,18 @@ public class PRG_IT_2015_march_test
 
                     if (dist<rad) 
                     {
-                        arr = "" + rs.getTimestamp(1);
+                        arr = "" + rs.getTimestamp(1); //Arrival Time 
 
                         while(rs.next())
                         {
-                            latTrace = rs.getDouble(2);
-                            lonTrace = rs.getDouble(3);
+                            latTrace = rs.getDouble(2); //Lat of current trace
+                            lonTrace = rs.getDouble(3); //Long of current trace
 
                             dist = haversine(latTrace, lonTrace, latPOI, lonPOI);
 
                             if (dist>rad) 
                             {
-                                dep = "" + rs.getTimestamp(1);
+                                dep = "" + rs.getTimestamp(1); //Departure Time
 
                                 arrDep[c][0] = arr; //arrival time
                                 arrDep[c][1] = dep; //departure time  
