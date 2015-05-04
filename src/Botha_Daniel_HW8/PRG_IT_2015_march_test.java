@@ -434,9 +434,5 @@ public class PRG_IT_2015_march_test
     
     public static void main(String[] args) {
         new PRG_IT_2015_march_test();
-        java.util.Date date= new java.util.Date();
-        System.out.println(""+new Timestamp(date.getTime()));
-        System.out.println("" + System.currentTimeMillis());
-                
     }
 }
