@@ -138,18 +138,19 @@ public class PRG_IT_2015_march_test
             ResultSet rs = stmt.executeQuery(sql1);     //Traces
             ResultSet rs2 = stmt2.executeQuery(sql2);   //POIS
             
-            while(rs2.next())
+            while(rs2.next()) //Loop over POI
             {
+                
+                latPOI = rs2.getDouble(2);          //POIs
+                lonPOI = rs2.getDouble(3);          //POIs
+                rad = rs2.getDouble(4);             //POIs
+                String name = rs2.getString(1);     //POIs
+                
                 innerloop:
-                while(rs.next())
+                while(rs.next())    //Loop over Traces
                 {
                     latTrace = rs.getDouble(2);         //Latitude of Trace
                     lonTrace = rs.getDouble(3);         //Longitude of Trace
-
-                    latPOI = rs2.getDouble(2);          //POIs
-                    lonPOI = rs2.getDouble(3);          //POIs
-                    rad = rs2.getDouble(4);             //POIs
-                    String name = rs2.getString(1);     //POIs
 
     //                System.out.println("" + latTrace + " " + latTrace + " "+ latPOI + " "+ lonPOI + " ");
 
