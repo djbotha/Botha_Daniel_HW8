@@ -51,40 +51,6 @@ public class PRG_IT_2015_march_test
         {
             conn = DriverManager.getConnection("jdbc:derby://localhost:1527/NBUSER", "nbuser", "nbuser");
             System.out.println("Connection to GPS_traces Database Established");
-//         
-//            char choice;
-//            do {
-//                System.out.println ("\n        MENU");
-//                System.out.println ("        ====\n");
-//                System.out.println ("    A - Show all traces");
-//                System.out.println ("    B - Show all traces between 2013-02-28 18:07:36 and 2013-02-28 18:07:36");
-//                System.out.println ("    C - Show speed and timestamp on road \n"
-//                                  + "        located at [-33.82 -33.745] latitude [18.79 19.01] longitude");
-//                System.out.println ("    D - Number of times speed exceeded 120 km//h");
-//                System.out.println ("    E - Display the times of the 5 most Northern traces");
-//                System.out.println ("    F - Display average speed by using Riemann summation");
-//                System.out.println ("    G - Calculate straight distance between 2 points");
-//                System.out.println ("    Q - QUIT\n");
-//                System.out.print   ("    Your Choice - ");
-//                choice = keyb.nextLine().toUpperCase().charAt(0);
-//                System.out.println(" ");
-//                switch (choice) {
-//                    case 'A': { showAllTraces(); break; }
-//                    case 'B': { betweenTimes();	break; }
-//                    case 'C': { aroundLocation();	break; }
-//                    case 'D': { countSpeedLimitExceedings(); break; }
-//                    case 'E': { top5North(); break; }
-//                    case 'F': { averageSpeed(); break; }
-////                    case 'G': { distancePointsMenu(); break; }
-//                }
-//            }
-//            while (choice != 'Q');
-//                
-//                conn.close();
-//                System.out.println("Execution Complete");
-//                Thread.sleep(1000);
-//                System.exit(0);
-//      
         } catch (SQLException ex) 
         {
             System.out.println("Connection to GPS_traces Database Failed: " + ex);
