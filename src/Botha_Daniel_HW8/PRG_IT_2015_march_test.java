@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
  * @author [name], [student number]
  * 
  */
+
 public class PRG_IT_2015_march_test 
 {
     static 
@@ -147,7 +148,7 @@ public class PRG_IT_2015_march_test
                 String name = rs2.getString(1);     //POIs
                 Boolean wasVisited = false;
                 
-                innerloop:
+                innerloop: //http://wwwstackoverflow.com/questions/886955/breaking-out-of-nested-loops-in-java
                 while(rs.next())    //Loop over Traces
                 {
                     latTrace = rs.getDouble(2);         //Latitude of Trace
@@ -161,6 +162,8 @@ public class PRG_IT_2015_march_test
                     System.out.println( "dist<rad: " + (dist<rad));
                     if (dist<rad) 
                     {
+                        wasVisited = true;
+                        
                         arr = "" + rs.getTimestamp(1);
 
                         while(rs.next())
@@ -185,6 +188,9 @@ public class PRG_IT_2015_march_test
     //                        System.out.println("" + rs.next() + (boolean)(c<13)); //Testing
                         }
                     }
+                    if (wasVisited)
+                        break innerloop;
+                    
                 }
             }
         } 
