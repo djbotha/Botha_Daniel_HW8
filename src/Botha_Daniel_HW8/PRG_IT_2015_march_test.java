@@ -43,7 +43,7 @@ public class PRG_IT_2015_march_test
                         "Stellenbosch", "Tunnel", "Worcester", "Aberdeen",
                         "Cradock", "Tarkastad", "Queenstown", "Cofimvaba", 
                         "Ncobo", "Mthatha"};
-    private String[][] arrDep = new String[13][2];
+//    private String[][] arrDep = new String[13][2];
     
     public PRG_IT_2015_march_test() 
     {
