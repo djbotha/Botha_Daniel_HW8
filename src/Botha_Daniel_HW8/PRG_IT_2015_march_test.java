@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.Scanner;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -33,7 +32,6 @@ public class PRG_IT_2015_march_test
         }
     }
     
-    private Scanner keyb = new Scanner(System.in);
     private Connection conn;
     private String[] poisOutput = {"Beaufort West", "Laingsburg", "Graaff Reinett", //Points of interest to be printed - notice \t at some shorter names
                         "Stellenbosch", "Tunnel\t", "Worcester", "Aberdeen",
