@@ -145,6 +145,7 @@ public class PRG_IT_2015_march_test
                 lonPOI = rs2.getDouble(3);          //POIs
                 rad = rs2.getDouble(4);             //POIs
                 String name = rs2.getString(1);     //POIs
+                Boolean wasVisited = false;
                 
                 innerloop:
                 while(rs.next())    //Loop over Traces
@@ -169,15 +170,15 @@ public class PRG_IT_2015_march_test
 
                             dist = haversine(latTrace, lonTrace, latPOI, lonPOI);
 
-                            System.out.println("dist=" + dist + ", rad=" + rad);
+                            System.out.println("name=" + name + ", dist=" + dist + ", rad=" + rad);
                             System.out.println( "dist>rad: " + (dist>rad) );
                             if (dist>rad) 
                             {
                                 dep = "" + rs.getTimestamp(1);
 
                                 arrDep[c][0] = arr; //For arrival and departure times to be used later
-                                arrDep[c][1] = dep;
-
+                                arrDep[c][1] = dep; 
+                                
                                 out.append(poisOutput[c] + "\t" + arr + "\t" + dep +"\n");
                                 break innerloop;
                             }
