@@ -135,7 +135,7 @@ public class PRG_IT_2015_march_test
         try 
         {
             double dist, latTrace, lonTrace, rad, latPOI, lonPOI;
-            String arr, dep;
+            Timestamp arr, dep;
             int c = 0;
             
             Statement stmt = conn.createStatement();    //To be used for traces
@@ -169,7 +169,7 @@ public class PRG_IT_2015_march_test
 
                     if (dist<rad) 
                     {
-                        arr = "" + rs.getTimestamp(1); //Arrival Time 
+                        arr = rs.getTimestamp(1); //Arrival Time 
 
                         while(rs.next())
                         {
@@ -180,11 +180,12 @@ public class PRG_IT_2015_march_test
 
                             if (dist>rad) 
                             {
-                                dep = "" + rs.getTimestamp(1); //Departure Time
+                                dep = rs.getTimestamp(1); //Departure Time
 
                                 arrDep[c][0] = name; //name
-                                arrDep[c][1] = arr; //arrival time
-                                arrDep[c][2] = dep; //departure time
+                                arrDep[c][1] = ""+arr; //arrival time
+                                arrDep[c][2] = ""+dep; //departure time
+                                updateRecord(name, arr, dep);
                                 out.append(poisOutput[c] + "\t" + arrDep[c][1] + "\t" + arrDep[c][2] +"\n");
                                 c++;
                                 break innerloop;
@@ -202,6 +203,25 @@ public class PRG_IT_2015_march_test
         
         
     } // 2.2
+    
+    public void updateRecord(String name, Timestamp arr, Timestamp dep)
+    {
+        try 
+        {
+            Statement stmt = conn.createStatement();
+            String sql =    "UPDATE \"pois\" \n" +
+                            "SET \"ARRIVAL_TIME\" = '" + arr + "'\n" +
+                            "WHERE \"name\" = '" + name + "'";
+            stmt.executeUpdate(sql);
+            
+            sql =   "UPDATE \"pois\" \n" +
+                    "SET \"ARRIVAL_TIME\" = '" + dep + "'\n" +
+                    "WHERE \"name\" = '" + name + "'";
+        } catch (SQLException ex) 
+        {
+            System.out.println("Update failed: " + ex);
+        }
+    }
     
     public void drivingDistances(JTextArea out)
     {
