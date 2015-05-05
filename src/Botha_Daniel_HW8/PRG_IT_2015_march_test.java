@@ -229,13 +229,14 @@ public class PRG_IT_2015_march_test
         {
             out.setText("\t\t");
             int c = 0;
-            Statement stmt = conn.createStatement();
-            Statement stmt2 = conn.createStatement();
             
             String sql1 =   "select * \n" +
                             "from NBUSER.\"pois\"\n" +
                             "WHERE \"ARRIVAL_TIME\" is not null AND \"DEPARTURE_TIME\" is not null\n" +
                             "ORDER BY \"ARRIVAL_TIME\"";
+            
+            Statement stmt = conn.createStatement();
+            Statement stmt2 = conn.createStatement();
             
             ResultSet rs = stmt.executeQuery(sql1);
             ResultSet rs2;
@@ -286,26 +287,22 @@ public class PRG_IT_2015_march_test
             Statement stmt = conn.createStatement();
             
             ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-         
+
             while(rs.next())
             {
                 lat1 = rs.getDouble(2);
                 lon1 = rs.getDouble(3);
-                
+                System.out.println(lat1 + " " + lon1);
                 rs.next();
                 lat2 = rs.getDouble(2);
                 lon2 = rs.getDouble(3);
-                
+                System.out.println(lat2 + " " + lon2);
                 accDist += haversine(lat1, lon1, lat2, lon2);
             }
             
 //            accDist = (double) Math.round( haversine(lat1, lon1, lat2, lon2) *100 ) / 100;
-           
-            
-            
-            
-            return accDist;
+                                              
+            return (double) Math.round(accDist*100) / 100;
         } 
         catch (SQLException ex) 
         {
