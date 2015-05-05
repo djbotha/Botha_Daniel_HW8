@@ -204,7 +204,7 @@ public class PRG_IT_2015_march_test
         
     } // 2.2
     
-    public void updateRecord(String name, Timestamp arr, Timestamp dep)
+    public void updateRecord(String name, Timestamp arr, Timestamp dep) //Adds the timestamps to table
     {
         try 
         {
