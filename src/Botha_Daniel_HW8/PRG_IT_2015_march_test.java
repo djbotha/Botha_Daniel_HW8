@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -139,14 +141,13 @@ public class PRG_IT_2015_march_test
             Statement stmt = conn.createStatement();    //To be used for traces
             Statement stmt2 = conn.createStatement();   //To be used for POIs
             
-            out.setText(""); //Clear output 
-            
             String sql1 = "SELECT * \nFROM NBUSER.\"traces\"";  //Traces
             String sql2 = "SELECT * \nFROM NBUSER.\"pois\"";    //POIS
 
             ResultSet rs;     //Traces
             ResultSet rs2 = stmt2.executeQuery(sql2);   //POIS
             
+            out.setText("Name:\t\tTime of Arrival:\tTime of Departure:\n"); //Set output headings
             while(rs2.next()) //Loop over POI
             {
                 
@@ -229,6 +230,7 @@ public class PRG_IT_2015_march_test
             out.setText("\t\t");
             int c = 0;
             Statement stmt = conn.createStatement();
+            Statement stmt2 = conn.createStatement();
             
             String sql1 =   "select * \n" +
                             "from NBUSER.\"pois\"\n" +
@@ -236,6 +238,7 @@ public class PRG_IT_2015_march_test
                             "ORDER BY \"ARRIVAL_TIME\"";
             
             ResultSet rs = stmt.executeQuery(sql1);
+            ResultSet rs2;
             
             while(rs.next())
             {
@@ -244,16 +247,22 @@ public class PRG_IT_2015_march_test
             }
             
             rs = stmt.executeQuery(sql1);
+            rs2 = stmt2.executeQuery(sql1);
             
             while(rs.next())
             {
-                out.append("\n" + rs.getString(1));
+                String name = rs.getString(1);                    
+                String depTime = rs.getString("DEPARTURE_TIME");
+                
+                out.append("\n" + name);
+                
+                
                 for (int j = 0; j < c; j++) 
                 {
 //                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
-                    
-                    out.append("\t" + accumulativeDist(rs.getString(1), "asd"));
-                
+                    String arrTime = rs.getString("ARRIVAL_TIME");
+                    rs2.next();
+                    out.append("\t" + accumulativeDist(name, arrTime, depTime));
                 }
             }
         } catch (SQLException ex) 
@@ -262,12 +271,45 @@ public class PRG_IT_2015_march_test
         }
     }
     
-    public double accumulativeDist(String name, String trace)
+    public double accumulativeDist(String name, String arrival_time, String departure_time)
     {
-        double accDist = 0.0;
-        
-        
-        return accDist;
+        try 
+        {
+            double accDist;
+            
+            double lat1, lon1, lat2, lon2;
+            
+            String sql1 = "SELECT * \nFROM NBUSER.\"traces\"\n" +
+                           "WHERE \"trace_time\" = '"+ arrival_time +"'";
+            String sql2 = "SELECT * \nFROM NBUSER.\"traces\"\n" +
+                           "WHERE \"trace_time\" = '"+ departure_time +"'";
+            
+            Statement stmt = conn.createStatement();
+            
+            ResultSet rs = stmt.executeQuery(sql1);
+            rs.next();
+            
+            lat1 = rs.getDouble(2);
+            lon1 = rs.getDouble(3);
+
+            ResultSet rs2 = stmt.executeQuery(sql2);
+            rs2.next();
+            
+            lat2 = rs2.getDouble(2);
+            lon2 = rs2.getDouble(3);
+            
+            accDist = (double) Math.round( haversine(lat1, lon1, lat2, lon2) *100 ) / 100;
+           
+            
+            
+            
+            return accDist;
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println("Accumulative Distance failed: " + ex);
+            return 0.0;
+        }
     }
     
     
