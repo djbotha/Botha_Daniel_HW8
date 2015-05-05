@@ -215,8 +215,9 @@ public class PRG_IT_2015_march_test
             stmt.executeUpdate(sql);
             
             sql =   "UPDATE \"pois\" \n" +
-                    "SET \"ARRIVAL_TIME\" = '" + dep + "'\n" +
+                    "SET \"DEPARTURE_TIME\" = '" + dep + "'\n" +
                     "WHERE \"name\" = '" + name + "'";
+            stmt.executeUpdate(sql);
         } catch (SQLException ex) 
         {
             System.out.println("Update failed: " + ex);
