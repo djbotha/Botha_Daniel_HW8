@@ -77,7 +77,7 @@ public class PRG_IT_2015_march_test
             out.append("\n" + poisOutput[i]);
             for (int j = 0; j < poi.length; j++) 
             {
-                out.append("\t" + distancePoints(poi[i], poi[j]));
+                out.append("\t" + distancePoints(poi[i], poi[j], "pois", "pois"));
             }
         }
     } // 2.
@@ -86,20 +86,20 @@ public class PRG_IT_2015_march_test
     public void distancePointsOutput(String poi1, String poi2, JTextArea out)
     {        
         out.append("\nTotal distance between " + poi1 + " and " + poi2 + ": " 
-                    + distancePoints(poi1, poi2) + "km");
+                    + distancePoints(poi1, poi2, "pois", "pois") + "km");
     } // 2.1
     
     /*2.1  */
-    public double distancePoints(String poi1, String poi2)
+    public double distancePoints(String poi1, String poi2, String tbl1, String tbl2)
     {
         try 
         {
             double dist;
             double lat1, lon1, lat2, lon2;
             
-            String sql1 = "SELECT * \nFROM NBUSER.\"pois\"\n" +
+            String sql1 = "SELECT * \nFROM NBUSER.\""+ tbl1 +"\"\n" +
                            "WHERE \"name\" = '"+ poi1 +"'";
-            String sql2 = "SELECT * \nFROM NBUSER.\"pois\"\n" +
+            String sql2 = "SELECT * \nFROM NBUSER.\""+ tbl2 +"\"\n" +
                            "WHERE \"name\" = '"+ poi2 +"'";
             
             Statement stmt = conn.createStatement();
@@ -200,6 +200,23 @@ public class PRG_IT_2015_march_test
         
         
     } // 2.2
+    
+    public void drivingDistances(JTextArea out)
+    {
+        out.setText("\t\t");
+        
+        for (int i = 0; i < poi.length; i++) 
+            out.append("POI" + (i+1) + "\t");
+
+        for (int i = 0; i < poi.length; i++) 
+        {
+            out.append("\n" + poisOutput[i]);
+            for (int j = 0; j < poi.length; j++) 
+            {
+                out.append("\t" + distancePoints(poi[i], poi[j], "pois", "pois"));
+            }
+        }
+    }
     
     /* 1.  */
     public void showAllTraces() 
