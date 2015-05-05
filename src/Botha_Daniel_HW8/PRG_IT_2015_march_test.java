@@ -213,8 +213,7 @@ public class PRG_IT_2015_march_test
             
             String sql1 =   "select * \n" +
                             "from NBUSER.\"pois\"\n" +
-                            "WHERE \"ARRIVAL_TIME\" <> 'null'\n" +
-                            "ORDER BY \"ARRIVAL_TIME\"";
+                            "WHERE \"ARRIVAL_TIME\" is not null";
             
             ResultSet rs = stmt.executeQuery(sql1);
             
