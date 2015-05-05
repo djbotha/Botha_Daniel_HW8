@@ -22,6 +22,7 @@ public class PointsOfInterest extends javax.swing.JFrame
         btnDrive = new javax.swing.JButton();
         btnGetAllDistances = new javax.swing.JButton();
         btnArrDep = new javax.swing.JButton();
+        btnGoogleMaps = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -47,7 +48,7 @@ public class PointsOfInterest extends javax.swing.JFrame
         taOutput.setRows(5);
         jScrollPane1.setViewportView(taOutput);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 94, 470, 200));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 124, 460, 170));
 
         btnDrive.setText("Driving Distances");
         btnDrive.addActionListener(new java.awt.event.ActionListener() {
@@ -73,6 +74,14 @@ public class PointsOfInterest extends javax.swing.JFrame
         });
         getContentPane().add(btnArrDep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 150, -1));
 
+        btnGoogleMaps.setText("GOOGLE MAPS");
+        btnGoogleMaps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoogleMapsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGoogleMaps, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 460, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -93,6 +102,17 @@ public class PointsOfInterest extends javax.swing.JFrame
     private void btnArrDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArrDepActionPerformed
         new PRG_IT_2015_march_test().arrDepartTimes(taOutput);
     }//GEN-LAST:event_btnArrDepActionPerformed
+
+    private void btnGoogleMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoogleMapsActionPerformed
+         try
+         {
+             java.awt.Desktop.getDesktop().browse(java.net.URI.create("www.google.co.za"));
+         }
+         catch (java.io.IOException e) 
+         {
+            System.out.println(e.getMessage());
+         }
+    }//GEN-LAST:event_btnGoogleMapsActionPerformed
     public static void main(String args[]) 
     {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -128,6 +148,7 @@ public class PointsOfInterest extends javax.swing.JFrame
     private javax.swing.JButton btnDrive;
     private javax.swing.JButton btnGetAllDistances;
     private javax.swing.JButton btnGetDistance;
+    private javax.swing.JButton btnGoogleMaps;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -251,7 +251,7 @@ public class PRG_IT_2015_march_test
             {
                 String name = rs.getString(1);                    
                 String depTime = rs.getString("DEPARTURE_TIME");
-                if ((name.length()/8)<1) 
+                if ((name.length()/8)<1) //Check how many tabs to add
                 {
                     out.append("\n" + name + "\t");
                 }
