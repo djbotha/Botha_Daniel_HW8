@@ -83,7 +83,7 @@ public class PointsOfInterest extends javax.swing.JFrame
     }//GEN-LAST:event_btnGetDistanceActionPerformed
 
     private void btnDriveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDriveActionPerformed
-        
+        new PRG_IT_2015_march_test().drivingDistances(taOutput);
     }//GEN-LAST:event_btnDriveActionPerformed
 
     private void btnGetAllDistancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetAllDistancesActionPerformed
