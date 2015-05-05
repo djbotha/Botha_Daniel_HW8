@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -319,13 +321,31 @@ public class PRG_IT_2015_march_test
     {
         try
          {
-             String url = "maps.googleapis.com/maps/api/staticmap?center=South+Africa&zoom=6&size=800x500&maptype=roadmap" + URLEncoder.encode("&markers=color:blue|label:S|-31.88,28.70&markers=color:green|label:E|-33.92,18.85","UTF-8");
+             double lat, lon;
+             String name;
+             String url = "http://maps.googleapis.com/maps/api/staticmap?center=South+Africa&zoom=6&size=800x500&maptype=roadmap";
+             String sql = "select * from NBUSER.\"pois\"";
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql);
+             
+             while(rs.next())
+             {
+                 name = rs.getString(1);
+                 lat = (double) Math.round(rs.getDouble(2)*100) / 100;
+                 lon = (double) Math.round(rs.getDouble(3)*100) / 100;
+                 
+                 url+= "&markers=color:red%7Clabel:POI%7C" + lat + "," + lon + "";
+             }
              java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
          }
          catch (java.io.IOException e) 
          {
             System.out.println(e.getMessage());
-         }
+         } 
+        catch (SQLException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
     } // 2.4
     
     /* 1.  */
