@@ -250,7 +250,10 @@ public class PRG_IT_2015_march_test
                 out.append("\n" + rs.getString(1));
                 for (int j = 0; j < c; j++) 
                 {
-                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
+//                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
+                    
+                    out.append("\t" + accumulativeDist(rs.getString(1), "asd"));
+                
                 }
             }
         } catch (SQLException ex) 
