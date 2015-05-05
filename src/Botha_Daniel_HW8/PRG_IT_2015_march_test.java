@@ -262,7 +262,7 @@ public class PRG_IT_2015_march_test
 //                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
                     String arrTime = rs.getString("ARRIVAL_TIME");
                     rs2.next();
-                    out.append("\t" + accumulativeDist(name, arrTime, depTime));
+                    out.append("\t" + accumulativeDist(arrTime, depTime));
                 }
             }
         } catch (SQLException ex) 
@@ -271,7 +271,7 @@ public class PRG_IT_2015_march_test
         }
     }
     
-    public double accumulativeDist(String name, String arrival_time, String departure_time)
+    public double accumulativeDist(String arrival_time, String departure_time)
     {
         try 
         {
