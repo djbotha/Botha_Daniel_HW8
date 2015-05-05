@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -203,18 +205,34 @@ public class PRG_IT_2015_march_test
     
     public void drivingDistances(JTextArea out)
     {
-        out.setText("\t\t");
-        
-        for (int i = 0; i < poi.length; i++) 
-            out.append("POI" + (i+1) + "\t");
-
-        for (int i = 0; i < poi.length; i++) 
+        try 
         {
-            out.append("\n" + poisOutput[i]);
-            for (int j = 0; j < poi.length; j++) 
+            out.setText("\t\t");
+            
+            Statement stmt = conn.createStatement();
+            
+            String sql1 =   "select * \n" +
+                            "from NBUSER.\"pois\"\n" +
+                            "WHERE \"ARRIVAL_TIME\" <> 'null'\n" +
+                            "ORDER BY \"ARRIVAL_TIME\"";
+            
+            ResultSet rs = stmt.executeQuery(sql1);
+            
+            
+            for (int i = 0; i < poi.length; i++)
+                out.append("POI" + (i+1) + "\t");
+
+            for (int i = 0; i < poi.length; i++) 
             {
-                out.append("\t" + distancePoints(poi[i], poi[j], "pois", "pois"));
+                out.append("\n" + poisOutput[i]);
+                for (int j = 0; j < poi.length; j++) 
+                {
+                    out.append("\t" + distancePoints(poi[i], poi[j], "pois", "pois"));
+                }
             }
+        } catch (SQLException ex) 
+        {
+            System.out.println("Connection to DB failed: " + ex);
         }
     }
     
