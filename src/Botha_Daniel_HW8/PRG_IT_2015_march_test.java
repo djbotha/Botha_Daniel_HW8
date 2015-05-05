@@ -42,7 +42,12 @@ public class PRG_IT_2015_march_test
                         "Stellenbosch", "Tunnel", "Worcester", "Aberdeen",
                         "Cradock", "Tarkastad", "Queenstown", "Cofimvaba", 
                         "Ncobo", "Mthatha"};
-    private String[][] arrDep = new String[13][2];
+    private String[][] arrDep = new String[13][3]; 
+    
+    /*  Name    ArrTime DepTime
+     *  Stb     ...     ...
+     */
+    
     
     public PRG_IT_2015_march_test() 
     {
@@ -172,10 +177,10 @@ public class PRG_IT_2015_march_test
                             {
                                 dep = "" + rs.getTimestamp(1); //Departure Time
 
-                                arrDep[c][0] = arr; //arrival time
-                                arrDep[c][1] = dep; //departure time  
-                                
-                                out.append(poisOutput[c] + "\t" + arr + "\t" + dep +"\n");
+                                arrDep[c][0] = name; //arrival time
+                                arrDep[c][1] = arr; //departure time  
+                                arrDep[c][2] = dep;
+                                out.append(arrDep[c][0] + "\t" + arrDep[c][1] + "\t" + arrDep[c][2] +"\n");
                                 c++;
                                 break innerloop;
                             }
