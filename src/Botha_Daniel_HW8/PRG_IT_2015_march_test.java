@@ -1,5 +1,6 @@
 package Botha_Daniel_HW8;
 
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -200,7 +201,7 @@ public class PRG_IT_2015_march_test
         
         
     } // 2.2
-    
+    /*2.2  */
     public void updateRecord(String name, Timestamp arr, Timestamp dep) //Adds the timestamps to table
     {
         try 
@@ -219,8 +220,8 @@ public class PRG_IT_2015_march_test
         {
             System.out.println("Update failed: " + ex);
         }
-    }
-    
+    } // 2.2
+    /*2.3  */
     public void drivingDistances(JTextArea out)
     {
         try 
@@ -265,7 +266,6 @@ public class PRG_IT_2015_march_test
                 rs2.next();
                 for (int j = 0; j < c; j++) 
                 {
-//                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
                     String arrTime = rs2.getString("ARRIVAL_TIME");
                     out.append("\t" + accumulativeDist(arrTime, depTime));
                     rs2.next();
@@ -275,8 +275,8 @@ public class PRG_IT_2015_march_test
         {
             System.out.println("Driving distances failed: " + ex);
         }
-    }
-    
+    } // 2.3
+    /*2.3  */
     public double accumulativeDist(String arrival_time, String departure_time)
     {
         try 
@@ -313,8 +313,20 @@ public class PRG_IT_2015_march_test
             System.out.println("Accumulative Distance failed: " + ex);
             return 0.0;
         }
-    }
-    
+    } // 2.3
+    /*2.4  */
+    public void showOnMaps()
+    {
+        try
+         {
+             String url = "maps.googleapis.com/maps/api/staticmap?center=South+Africa&zoom=6&size=800x500&maptype=roadmap" + URLEncoder.encode("&markers=color:blue|label:S|-31.88,28.70&markers=color:green|label:E|-33.92,18.85","UTF-8");
+             java.awt.Desktop.getDesktop().browse(java.net.URI.create(url));
+         }
+         catch (java.io.IOException e) 
+         {
+            System.out.println(e.getMessage());
+         }
+    } // 2.4
     
     /* 1.  */
     public void showAllTraces() 

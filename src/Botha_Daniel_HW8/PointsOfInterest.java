@@ -104,14 +104,7 @@ public class PointsOfInterest extends javax.swing.JFrame
     }//GEN-LAST:event_btnArrDepActionPerformed
 
     private void btnGoogleMapsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoogleMapsActionPerformed
-         try
-         {
-             java.awt.Desktop.getDesktop().browse(java.net.URI.create("www.google.co.za"));
-         }
-         catch (java.io.IOException e) 
-         {
-            System.out.println(e.getMessage());
-         }
+        new PRG_IT_2015_march_test().showOnMaps();
     }//GEN-LAST:event_btnGoogleMapsActionPerformed
     public static void main(String args[]) 
     {
