@@ -9,8 +9,6 @@ import java.sql.Timestamp;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -59,10 +57,10 @@ public class PRG_IT_2015_march_test
         try 
         {
             conn = DriverManager.getConnection("jdbc:derby://localhost:1527/NBUSER", "nbuser", "nbuser");
-            System.out.println("Connection to GPS_traces Database Established");
+            System.out.println("Connection to NBUSER Database Established");
         } catch (SQLException ex) 
         {
-            System.out.println("Connection to GPS_traces Database Failed: " + ex);
+            System.out.println("Connection to NBUSER Database Failed: " + ex);
         } 
     }
     
@@ -253,21 +251,29 @@ public class PRG_IT_2015_march_test
             {
                 String name = rs.getString(1);                    
                 String depTime = rs.getString("DEPARTURE_TIME");
+                if ((name.length()/8)<1) 
+                {
+                    out.append("\n" + name + "\t");
+                }
+                else
+                {
+                    out.append("\n" + name);
+                }
                 
-                out.append("\n" + name);
                 
                 rs2 = stmt2.executeQuery(sql1);
+                rs2.next();
                 for (int j = 0; j < c; j++) 
                 {
 //                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
-                    String arrTime = rs.getString("ARRIVAL_TIME");
-                    rs2.next();
+                    String arrTime = rs2.getString("ARRIVAL_TIME");
                     out.append("\t" + accumulativeDist(arrTime, depTime));
+                    rs2.next();
                 }
             }
         } catch (SQLException ex) 
         {
-            System.out.println("Connection to DB failed: " + ex);
+            System.out.println("Driving distances failed: " + ex);
         }
     }
     
@@ -287,21 +293,19 @@ public class PRG_IT_2015_march_test
             Statement stmt = conn.createStatement();
             
             ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            lat1 = rs.getDouble(2);
+            lon1 = rs.getDouble(3);
 
             while(rs.next())
             {
-                lat1 = rs.getDouble(2);
-                lon1 = rs.getDouble(3);
-                System.out.println(lat1 + " " + lon1);
-                rs.next();
                 lat2 = rs.getDouble(2);
                 lon2 = rs.getDouble(3);
-                System.out.println(lat2 + " " + lon2);
                 accDist += haversine(lat1, lon1, lat2, lon2);
+                lat1 = lat2;
+                lon1 = lon2;
             }
             
-//            accDist = (double) Math.round( haversine(lat1, lon1, lat2, lon2) *100 ) / 100;
-                                              
             return (double) Math.round(accDist*100) / 100;
         } 
         catch (SQLException ex) 
