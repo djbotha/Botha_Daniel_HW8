@@ -43,9 +43,12 @@ public class PRG_IT_2015_march_test
                         "Cradock", "Tarkastad", "Queenstown", "Cofimvaba", 
                         "Ncobo", "Mthatha"};
     private String[][] arrDep = new String[13][3]; 
-    
-    /*  Name    ArrTime DepTime
-     *  Stb     ...     ...
+    /*  arrDep 2D Array of Strings:
+     * 
+     *       Name       ArrTime                     DepTime 
+     *  0    Stb        2013-02-28 23:34:41.0       2013-03-01 00:11:49.0
+     *  ...  ...        ...                         ...
+     *  12   Cofimvaba	2013-03-01 07:13:08.0       2013-03-01 07:32:12.0
      */
     
     
@@ -177,10 +180,10 @@ public class PRG_IT_2015_march_test
                             {
                                 dep = "" + rs.getTimestamp(1); //Departure Time
 
-                                arrDep[c][0] = name; //arrival time
-                                arrDep[c][1] = arr; //departure time  
-                                arrDep[c][2] = dep;
-                                out.append(arrDep[c][0] + "\t" + arrDep[c][1] + "\t" + arrDep[c][2] +"\n");
+                                arrDep[c][0] = name; //name
+                                arrDep[c][1] = arr; //arrival time
+                                arrDep[c][2] = dep; //departure time
+                                out.append(poisOutput[c] + "\t" + arrDep[c][1] + "\t" + arrDep[c][2] +"\n");
                                 c++;
                                 break innerloop;
                             }
