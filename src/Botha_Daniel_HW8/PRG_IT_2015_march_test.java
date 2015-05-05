@@ -244,10 +244,6 @@ public class PRG_IT_2015_march_test
             }
             
             rs = stmt.executeQuery(sql1);
-            while(rs.next())
-            {
-                out.append("\n" + rs.getString(1));
-            }
             
             while(rs.next())
             {
@@ -262,6 +258,15 @@ public class PRG_IT_2015_march_test
             System.out.println("Connection to DB failed: " + ex);
         }
     }
+    
+    public double accumulativeDist(String name, String trace)
+    {
+        double accDist = 0.0;
+        
+        
+        return accDist;
+    }
+    
     
     /* 1.  */
     public void showAllTraces() 
