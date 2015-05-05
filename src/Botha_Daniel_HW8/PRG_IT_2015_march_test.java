@@ -247,7 +247,6 @@ public class PRG_IT_2015_march_test
             }
             
             rs = stmt.executeQuery(sql1);
-            rs2 = stmt2.executeQuery(sql1);
             
             while(rs.next())
             {
@@ -256,7 +255,7 @@ public class PRG_IT_2015_march_test
                 
                 out.append("\n" + name);
                 
-                
+                rs2 = stmt2.executeQuery(sql1);
                 for (int j = 0; j < c; j++) 
                 {
 //                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
@@ -275,30 +274,33 @@ public class PRG_IT_2015_march_test
     {
         try 
         {
-            double accDist;
+            double accDist=0.0;
             
             double lat1, lon1, lat2, lon2;
             
-            String sql1 = "SELECT * \nFROM NBUSER.\"traces\"\n" +
-                           "WHERE \"trace_time\" = '"+ arrival_time +"'";
-            String sql2 = "SELECT * \nFROM NBUSER.\"traces\"\n" +
-                           "WHERE \"trace_time\" = '"+ departure_time +"'";
+            String sql =   "select * from NBUSER.\"traces\"\n" +
+                            "WHERE \"trace_time\" > '"+ departure_time +"' "+ 
+                            "AND \"trace_time\" < '"+ arrival_time +"'\n" +
+                            "ORDER BY \"trace_time\"";
             
             Statement stmt = conn.createStatement();
             
-            ResultSet rs = stmt.executeQuery(sql1);
+            ResultSet rs = stmt.executeQuery(sql);
             rs.next();
+         
+            while(rs.next())
+            {
+                lat1 = rs.getDouble(2);
+                lon1 = rs.getDouble(3);
+                
+                rs.next();
+                lat2 = rs.getDouble(2);
+                lon2 = rs.getDouble(3);
+                
+                accDist += haversine(lat1, lon1, lat2, lon2);
+            }
             
-            lat1 = rs.getDouble(2);
-            lon1 = rs.getDouble(3);
-
-            ResultSet rs2 = stmt.executeQuery(sql2);
-            rs2.next();
-            
-            lat2 = rs2.getDouble(2);
-            lon2 = rs2.getDouble(3);
-            
-            accDist = (double) Math.round( haversine(lat1, lon1, lat2, lon2) *100 ) / 100;
+//            accDist = (double) Math.round( haversine(lat1, lon1, lat2, lon2) *100 ) / 100;
            
             
             
