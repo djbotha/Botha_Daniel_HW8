@@ -9,8 +9,6 @@ import java.sql.Timestamp;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -45,7 +43,7 @@ public class PRG_IT_2015_march_test
                         "Cradock", "Tarkastad", "Queenstown", "Cofimvaba", 
                         "Ncobo", "Mthatha"};
     private String[][] arrDep = new String[13][3]; 
-    /*  arrDep 2D Array of Strings:
+    /*  arrDep 2D Array of POIs that were visited:
      * 
      *       Name       ArrTime                     DepTime 
      *  0    Stb        2013-02-28 23:34:41.0       2013-03-01 00:11:49.0
@@ -229,25 +227,34 @@ public class PRG_IT_2015_march_test
         try 
         {
             out.setText("\t\t");
-            
+            int c = 0;
             Statement stmt = conn.createStatement();
             
             String sql1 =   "select * \n" +
                             "from NBUSER.\"pois\"\n" +
-                            "WHERE \"ARRIVAL_TIME\" is not null";
+                            "WHERE \"ARRIVAL_TIME\" is not null AND \"DEPARTURE_TIME\" is not null\n" +
+                            "ORDER BY \"ARRIVAL_TIME\"";
             
             ResultSet rs = stmt.executeQuery(sql1);
             
-            
-            for (int i = 0; i < poi.length; i++)
-                out.append("POI" + (i+1) + "\t");
-
-            for (int i = 0; i < poi.length; i++) 
+            while(rs.next())
             {
-                out.append("\n" + poisOutput[i]);
-                for (int j = 0; j < poi.length; j++) 
+                out.append("POI" + (c+1) + "\t");
+                c++;
+            }
+            
+            rs = stmt.executeQuery(sql1);
+            while(rs.next())
+            {
+                out.append("\n" + rs.getString(1));
+            }
+            
+            while(rs.next())
+            {
+                out.append("\n" + rs.getString(1));
+                for (int j = 0; j < c; j++) 
                 {
-                    out.append("\t" + distancePoints(poi[i], poi[j], "pois", "pois"));
+                    out.append("\t" + distancePoints(poi[c], poi[j], "pois", "pois"));
                 }
             }
         } catch (SQLException ex) 
