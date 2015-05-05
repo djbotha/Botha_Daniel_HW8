@@ -90,7 +90,7 @@ public class PRG_IT_2015_march_test
     } // 2.1
     
     /*2.1  */
-    public double distancePoints(String poi1, String poi2, String tbl1, String tbl2)
+    public double distancePoints(String point1, String point2, String tbl1, String tbl2)
     {
         try 
         {
@@ -98,9 +98,9 @@ public class PRG_IT_2015_march_test
             double lat1, lon1, lat2, lon2;
             
             String sql1 = "SELECT * \nFROM NBUSER.\""+ tbl1 +"\"\n" +
-                           "WHERE \"name\" = '"+ poi1 +"'";
+                           "WHERE \"name\" = '"+ point1 +"'";
             String sql2 = "SELECT * \nFROM NBUSER.\""+ tbl2 +"\"\n" +
-                           "WHERE \"name\" = '"+ poi2 +"'";
+                           "WHERE \"name\" = '"+ point2 +"'";
             
             Statement stmt = conn.createStatement();
             
@@ -254,7 +254,7 @@ public class PRG_IT_2015_march_test
                 out.append("\n" + rs.getString(1));
                 for (int j = 0; j < c; j++) 
                 {
-                    out.append("\t" + distancePoints(poi[c], poi[j], "pois", "pois"));
+                    out.append("\t" + distancePoints(rs.getString(1), poi[j], "traces", "pois"));
                 }
             }
         } catch (SQLException ex) 
